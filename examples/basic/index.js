@@ -2,7 +2,7 @@ import './main.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { convertDate } from '../../lib/time.js';
-import DatePicker from '../../lib/index';
+import DateTimePicker from '../../lib/DateTimePicker/index.js';
 
 (function main() {
     class App extends React.Component {
@@ -57,12 +57,13 @@ import DatePicker from '../../lib/index';
                             android-dark
                         </a>
                     </div>
-                    <DatePicker
+                    <DateTimePicker
+                        headerFormat="YYYY-MM-DD hh:mm"
                         value={this.state.time}
-                        max={new Date()}
-                        theme={this.state.theme}
+                        // max={new Date()}
+                        theme="default"
                         isOpen={this.state.isOpen}
-                        showCaption
+                        // showCaption
                         dateConfig={{
                             'year': {
                                 format: 'YYYY',
@@ -79,9 +80,26 @@ import DatePicker from '../../lib/index';
                                 caption: '日',
                                 step: 1,
                             },
+                            'hour': {
+                                format: 'hh',
+                                caption: '时',
+                                step: 1,
+                            },
+                            'minute': {
+                                format: 'mm',
+                                caption: '分',
+                                step: 1,
+                            },
+                            // 'second': {
+                            //     format: 'ss',
+                            //     caption: '秒',
+                            //     step: 1,
+                            // },
                         }}
                         onSelect={this.handleSelect}
-                        onCancel={this.handleToggle(false)} />
+                        onCancel={this.handleToggle(false)}
+                        disabledDate={(date) => date.getTime() < Date.now()}
+                        />
                 </div>
             );
         }
